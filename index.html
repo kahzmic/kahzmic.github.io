@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juan Gomez</title>
+<meta name="description" content="Electrical and computer engineering student. Robotics, embedded systems, and signal processing.">
+<style>
+  :root {
+    --ink: #16181d;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --bg: #ffffff;
+    --accent: #1a4fd6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 88px 24px 96px; }
+  header { margin-bottom: 56px; }
+  h1 { font-size: 30px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 10px; }
+  .tagline { color: var(--muted); font-size: 17px; margin: 0 0 22px; }
+  .links a {
+    color: var(--ink); text-decoration: none; font-size: 15px;
+    border-bottom: 1px solid var(--line); padding-bottom: 1px; margin-right: 18px;
+  }
+  .links a:hover { border-color: var(--accent); color: var(--accent); }
+  h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--muted); font-weight: 600;
+    margin: 0 0 22px; padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  section { margin-bottom: 52px; }
+  section p { margin: 0 0 14px; }
+  .project { margin-bottom: 30px; }
+  .project:last-child { margin-bottom: 0; }
+  .project h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+  .project h3 a { color: var(--ink); text-decoration: none; }
+  .project h3 a:hover { color: var(--accent); }
+  .project p { color: #3f444d; margin: 0 0 8px; }
+  .tags { font-size: 13px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .video { position: relative; padding-bottom: 56.25%; height: 0; margin: 14px 0; border-radius: 8px; overflow: hidden; }
+  .video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  img.shot { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 14px 0; }
+  ul.skills { list-style: none; padding: 0; margin: 0; }
+  ul.skills li { margin-bottom: 8px; }
+  ul.skills strong { font-weight: 600; }
+  ul.skills span { color: var(--muted); }
+  footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); padding-top: 22px; }
+  @media (max-width: 600px) {
+    .wrap { padding: 56px 20px 72px; }
+    h1 { font-size: 26px; }
+    .links a { display: inline-block; margin-bottom: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       EDIT GUIDE (for a human or an AI agent updating this site)
+       - The whole site is this one file. Edit the sections below.
+       - HEADER: name, tagline, and contact links.
+       - ABOUT: one short paragraph.
+       - PROJECTS: duplicate a <div class="project"> block per project.
+       - To add a PHOTO:  <img class="shot" src="images/NAME.jpg" alt="...">
+         (put the file in an images/ folder in this repo)
+       - To add a VIDEO:  paste a YouTube embed inside <div class="video">...</div>
+         (unlisted or public works; private does NOT play)
+       - SKILLS: one <li> per category. Keep it in sync with the resume.
+       ============================================================ -->
+
+  <!-- HEADER -->
+  <header>
+    <h1>Juan Gomez</h1>
+    <p class="tagline">Electrical &amp; computer engineering student. Robotics, embedded systems, and applied signal processing.</p>
+    <p class="links">
+      <a href="https://github.com/kahzmic">GitHub</a>
+      <a href="mailto:juan.gomez7462@gmail.com">Email</a>
+      <!-- Replace # with your LinkedIn URL, or delete this line. -->
+      <a href="#">LinkedIn</a>
+    </p>
+  </header>
+
+  <!-- ABOUT -->
+  <section>
+    <h2>About</h2>
+    <p>I work on the layer where software meets hardware &mdash; state estimation for mobile robots, processor architecture, and the electromagnetics underneath it all. Most of what I build starts as a question I couldn't answer by reading, so I simulate it instead.</p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <h2>Projects</h2>
+
+    <!-- PROJECT: copy this whole block to add another project -->
+    <div class="project">
+      <h3><a href="https://github.com/kahzmic/localization_sim">Monte Carlo Localization Simulator</a></h3>
+      <p>A real-time particle filter that localizes a robot inside a 2D map using simulated LIDAR. Runs 1,000 particles through motion and measurement updates each frame, resampling against raycast range readings to converge on the true pose. Built to understand why MCL works, not just that it does.</p>
+      <p class="tags">Python &middot; NumPy &middot; Pygame &middot; particle filters &middot; raycasting</p>
+      <!-- DEMO VIDEO (optional): uncomment and set the YouTube VIDEO_ID
+      <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Localization demo" allowfullscreen></iframe></div>
+      -->
+      <!-- SCREENSHOT (optional): <img class="shot" src="images/mcl.png" alt="MCL sim"> -->
+    </div>
+
+    <div class="project">
+      <h3><a href="https://github.com/kahzmic/ECEN-322">Electromagnetic Field Visualization</a></h3>
+      <p>Numerical solvers and plots for electric field and potential distributions from discrete charge configurations &mdash; turning the closed-form integrals from electromagnetics into something you can actually look at.</p>
+      <p class="tags">Python &middot; NumPy &middot; Matplotlib</p>
+    </div>
+
+    <div class="project">
+      <h3><a href="https://github.com/kahzmic/ARM-testing">ARM Assembly Sandbox</a></h3>
+      <p>A working bench for ARM instruction-level experiments &mdash; testing addressing modes, branching behavior, and register conventions directly against hardware semantics rather than trusting the lecture slides.</p>
+      <p class="tags">ARM assembly &middot; computer architecture</p>
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li><strong>Languages</strong> <span>&mdash; Python, C, ARM assembly</span></li>
+      <li><strong>Robotics</strong> <span>&mdash; particle filters, state estimation, LIDAR &amp; raycasting</span></li>
+      <li><strong>Systems</strong> <span>&mdash; computer architecture, embedded systems</span></li>
+      <li><strong>Tools</strong> <span>&mdash; NumPy, Matplotlib, Git</span></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Built and hosted on GitHub Pages.</p>
+  </footer>
+
+</div>
+</body>
+</html>
