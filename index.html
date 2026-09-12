@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Juan Gomez</title>
-<meta name="description" content="Electrical and computer engineering student. Robotics, embedded systems, and signal processing.">
+<meta name="description" content="Electrical engineering student. Embedded systems, robotics autonomy, and state estimation.">
 <style>
   :root {
     --ink: #16181d;
@@ -37,16 +37,31 @@
   }
   section { margin-bottom: 52px; }
   section p { margin: 0 0 14px; }
-  .project { margin-bottom: 30px; }
-  .project:last-child { margin-bottom: 0; }
-  .project h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+  .project, .role { margin-bottom: 30px; }
+  .project:last-child, .role:last-child { margin-bottom: 0; }
+  .project h3, .role h3 { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
   .project h3 a { color: var(--ink); text-decoration: none; }
   .project h3 a:hover { color: var(--accent); }
-  .project p { color: #3f444d; margin: 0 0 8px; }
+  .project p, .role p { color: #3f444d; margin: 0 0 8px; }
   .tags { font-size: 13px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .meta { font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+  .role ul { margin: 0 0 8px; padding-left: 18px; color: #3f444d; }
+  .role ul li { margin-bottom: 4px; }
+
+  /* --- MEDIA --------------------------------------------------------- */
+  /* YouTube embed (long clips) */
   .video { position: relative; padding-bottom: 56.25%; height: 0; margin: 14px 0; border-radius: 8px; overflow: hidden; }
   .video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-  img.shot { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 14px 0; }
+  /* Photos and screenshots */
+  img.shot { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 0; display: block; }
+  /* Self-hosted mp4 (short silent loops) */
+  video.shot { max-width: 100%; width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 0; display: block; background: #f3f4f6; }
+  figure { margin: 14px 0; }
+  /* two clips side by side (full speed / slow motion); stacks on phones */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .duo figure { margin: 0; }
+  figcaption { font-size: 13px; color: var(--muted); margin-top: 7px; }
+
   ul.skills { list-style: none; padding: 0; margin: 0; }
   ul.skills li { margin-bottom: 8px; }
   ul.skills strong { font-weight: 600; }
@@ -56,6 +71,7 @@
     .wrap { padding: 56px 20px 72px; }
     h1 { font-size: 26px; }
     .links a { display: inline-block; margin-bottom: 8px; }
+    .duo { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -64,25 +80,92 @@
 
   <!-- ============================================================
        EDIT GUIDE (for a human or an AI agent updating this site)
-       - The whole site is this one file. Edit the sections below.
-       - HEADER: name, tagline, and contact links.
-       - ABOUT: one short paragraph.
-       - PROJECTS: duplicate a <div class="project"> block per project.
-       - To add a PHOTO:  <img class="shot" src="images/NAME.jpg" alt="...">
-         (put the file in an images/ folder in this repo)
-       - To add a VIDEO:  paste a YouTube embed inside <div class="video">...</div>
-         (unlisted or public works; private does NOT play)
-       - SKILLS: one <li> per category. Keep it in sync with the resume.
+
+       The whole site is this one file. Edit the sections below.
+       - HEADER:     name, tagline, contact links.
+       - ABOUT:      one short paragraph.
+       - EXPERIENCE: duplicate a <div class="role"> block per position.
+       - PROJECTS:   duplicate a <div class="project"> block per project.
+       - SKILLS:     one <li> per category. Keep in sync with the resume.
+
+       MEDIA — three patterns, all already styled:
+
+       1. PHOTO / SCREENSHOT
+          <figure>
+            <img class="shot" src="photos/NAME.jpg" alt="describe it"
+                 onerror="this.closest('figure').remove()">
+            <figcaption>Caption text.</figcaption>
+          </figure>
+
+       2. SELF-HOSTED VIDEO  (best for short silent loops, keep under ~10MB)
+          <figure>
+            <video class="shot" autoplay loop muted playsinline>
+              <source src="videos/NAME.mp4" type="video/mp4"
+                      onerror="this.closest('figure').remove()">
+            </video>
+            <figcaption>Caption text.</figcaption>
+          </figure>
+
+       3. YOUTUBE  (best for longer clips; unlisted works, private does NOT)
+          <div class="video">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="..." allowfullscreen></iframe>
+          </div>
+
+          TO AUTOPLAY + LOOP A YOUTUBE EMBED, use this src instead:
+            https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&modestbranding=1&rel=0&playsinline=1
+          Two gotchas:
+            - loop=1 does NOTHING on its own. You MUST also set playlist= to the
+              SAME video ID, or it plays once and stops.
+            - autoplay needs mute=1. Browsers block autoplay with sound.
+          A looping YouTube embed still shows YouTube chrome on hover. For a
+          short clip, a self-hosted mp4 (pattern 2) loops cleaner.
+
+          TO SHOW ONLY PART OF A YOUTUBE VIDEO, add start/end (whole seconds):
+            https://www.youtube.com/embed/VIDEO_ID?start=95&end=130
+          Caveats:
+            - end is measured from the START OF THE VIDEO, not from start=.
+              start=95&end=130 plays 1:35 to 2:10, i.e. 35 seconds.
+            - start snaps to the nearest keyframe and can begin up to ~2s early.
+            - start/end do NOT survive looping: a looped video restarts at 0,
+              not at start=. Looping a segment needs the JS IFrame Player API.
+          If you want an exact looping segment, cut it locally instead and
+          self-host it with pattern 2:
+            ffmpeg -ss 95 -i source.mp4 -t 8 -c:v libx264 -crf 23 -an \
+                   -movflags +faststart clip.mp4
+
+       NOTE ON onerror: every <img> and <video> below removes itself if the
+       file is missing, so the page stays clean until you upload the media.
+       Add files to an images/ or video/ folder in this repo and they appear.
+
+       FILES THIS PAGE IS EXPECTING (folders: photos/ and videos/)
+
+       IMPORTANT: do NOT store these with Git LFS. GitHub Pages does not
+       resolve LFS pointers - it serves the pointer text and the media breaks.
+       Keep them as ordinary files, and keep .gitattributes deleted.
+
+         photos/team-at-comp.jpg             team with the robots at competition
+         photos/checking-sentry-match.jpg    checking Sentry before a match
+         photos/sentry-solo.jpg              Sentry on its own
+         photos/sentry-targeting-ramp.jpg    Sentry targeting from a ramp
+         videos/autoaim-autonav.mp4          nav + auto-aim running together
+         videos/auto-tokyo.mp4               autonomous navigation run
+         videos/autoaim-spinning.mp4         continuous fire, spinning target
+         videos/autoaim-moving.mp4           continuous fire, moving target
+         videos/hero-shot-timing.mp4         shot timing
+         videos/localization-path-planning.mp4  from-scratch MCL + planning
+
+       Photos: export as JPEG, max ~1600px wide, under ~400KB each.
+       A 27MB PNG will work but makes the page unusably slow.
        ============================================================ -->
 
   <!-- HEADER -->
   <header>
     <h1>Juan Gomez</h1>
-    <p class="tagline">Electrical &amp; computer engineering student. Robotics, embedded systems, and applied signal processing.</p>
+    <p class="tagline">Electrical engineering student. Embedded systems, robotics autonomy, and state estimation.</p>
     <p class="links">
       <a href="https://github.com/kahzmic">GitHub</a>
       <a href="mailto:juan.gomez7462@gmail.com">Email</a>
-      <!-- Replace # with your LinkedIn URL, or delete this line. -->
+      <!-- TODO: replace # with your LinkedIn URL, or delete this line. -->
       <a href="#">LinkedIn</a>
     </p>
   </header>
@@ -90,7 +173,74 @@
   <!-- ABOUT -->
   <section>
     <h2>About</h2>
-    <p>I work on the layer where software meets hardware &mdash; state estimation for mobile robots, processor architecture, and the electromagnetics underneath it all. Most of what I build starts as a question I couldn't answer by reading, so I simulate it instead.</p>
+    <p>I work where software meets hardware &mdash; autonomy stacks, embedded control, and the estimation math that makes a robot's idea of the world match the real one. For two years I led the software and autonomy team for Texas A&amp;M's RoboMaster robotics team, where most of what I know came from having to make it work on real hardware, at a competition, on a deadline.</p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section>
+    <h2>Experience</h2>
+
+    <!-- ROLE: copy this whole block to add another position -->
+    <div class="role">
+      <h3>Software Lead Engineer &mdash; Texas A&amp;M RoboMaster Robotics</h3>
+      <p class="meta">July 2024 &ndash; June 2026 &middot; College Station, TX</p>
+      <ul>
+        <li>Led a 10-member software and autonomy team building navigation, targeting, and vision algorithms for a national robotics competition, coordinating with 100+ teammates and managing a $3.5k perception hardware budget.</li>
+        <li>Delivered a fully autonomous robot running turret aiming and navigation algorithms across an NVIDIA Jetson and an STM32.</li>
+        <li>Rewrote the team's autonomy codebase, replacing four years of work from 27 contributors with a modular, multi-process architecture the team can actually maintain.</li>
+        <li>Contributed embedded control software to the team's 34,000-line C++ firmware codebase, and tuned cascaded PID loops for FOC turret motors.</li>
+      </ul>
+
+      <!-- FULL SYSTEM DEMO: navigation + auto-aim running together.
+           Self-hosted, click-to-play (not autoplay: it is a narrative clip, not a loop). -->
+      <figure>
+        <video class="shot" controls preload="metadata" playsinline>
+          <source src="videos/autoaim-autonav.mp4" type="video/mp4"
+                  onerror="this.closest('figure').remove()">
+        </video>
+        <figcaption>Sentry running autonomous navigation and auto-aim together.</figcaption>
+      </figure>
+      <!-- YouTube alternative if you would rather not host it here:
+      <!-- UNCOMMENT THIS once the video is on YouTube (unlisted is fine).
+           Replace YOUTUBE_ID_FULL_DEMO in BOTH spots (loop needs the ID twice).
+      <div class="video">
+        <iframe src="https://www.youtube.com/embed/YOUTUBE_ID_FULL_DEMO?loop=1&amp;playlist=YOUTUBE_ID_FULL_DEMO&amp;modestbranding=1&amp;rel=0&amp;playsinline=1"
+                title="Sentry: autonomous navigation and auto-aim" allowfullscreen></iframe>
+      </div>
+      -->
+
+      <!-- TEAM PHOTO — drop images/team-competition.jpg in the repo and this appears -->
+      <figure>
+        <img class="shot" src="photos/team-at-comp.jpg"
+             alt="Texas A&amp;M RoboMaster team with their robots at competition"
+             onerror="this.closest('figure').remove()">
+        <figcaption>The RoboMaster team with our robots at competition. <!-- TODO: add event name and year --></figcaption>
+      </figure>
+
+      <!-- ROBOT PHOTO (optional) -->
+      <figure>
+        <img class="shot" src="photos/checking-sentry-match.jpg"
+             alt="Checking Sentry at the start of a match"
+             onerror="this.closest('figure').remove()">
+        <figcaption>Checking Sentry before a match.</figcaption>
+      </figure>
+
+      <figure>
+        <img class="shot" src="photos/sentry-solo.jpg"
+             alt="Sentry, the fully autonomous robot, turret and onboard compute visible"
+             onerror="this.closest('figure').remove()">
+        <figcaption>Sentry &mdash; turret, perception hardware, and onboard compute.</figcaption>
+      </figure>
+    </div>
+
+    <div class="role">
+      <h3>Software Educator &amp; Mentor &mdash; Texas A&amp;M RoboMaster Robotics</h3>
+      <p class="meta">August 2026 &ndash; Present &middot; College Station, TX</p>
+      <ul>
+        <li>Designing and teaching an onboarding curriculum for ~15 new software members: microcontrollers, motor control, ROS 2, OpenCV, Linux, NVIDIA Jetson, sensor fusion, serial buses, Git, and CI/CD.</li>
+      </ul>
+    </div>
+
   </section>
 
   <!-- PROJECTS -->
@@ -99,25 +249,85 @@
 
     <!-- PROJECT: copy this whole block to add another project -->
     <div class="project">
-      <h3><a href="https://github.com/kahzmic/localization_sim">Monte Carlo Localization Simulator</a></h3>
-      <p>A real-time particle filter that localizes a robot inside a 2D map using simulated LIDAR. Runs 1,000 particles through motion and measurement updates each frame, resampling against raycast range readings to converge on the true pose. Built to understand why MCL works, not just that it does.</p>
-      <p class="tags">Python &middot; NumPy &middot; Pygame &middot; particle filters &middot; raycasting</p>
-      <!-- DEMO VIDEO (optional): uncomment and set the YouTube VIDEO_ID
-      <div class="video"><iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Localization demo" allowfullscreen></iframe></div>
-      -->
-      <!-- SCREENSHOT (optional): <img class="shot" src="images/mcl.png" alt="MCL sim"> -->
+      <h3>Autonomous Navigation Stack</h3>
+      <p>Wrote swerve drive odometry that streamed pose over UART to an NVIDIA Jetson running Nav2, merging two LD19 LiDARs into a single scan for AMCL localization and costmap-based obstacle avoidance. Prototyped in Gazebo and RViz2, then deployed on a fully autonomous robot that completed waypoint navigation at competition.</p>
+      <p class="tags">ROS 2 &middot; Nav2 &middot; AMCL &middot; LiDAR &middot; UART &middot; Gazebo &middot; RViz2</p>
+
+      <figure>
+        <video class="shot" controls preload="metadata" playsinline>
+          <source src="videos/auto-tokyo.mp4" type="video/mp4"
+                  onerror="this.closest('figure').remove()">
+        </video>
+        <figcaption>Sentry navigating autonomously alongside the RViz2 view &mdash; the chassis spins continuously while it translates, so the odometry and localization have to hold under constant rotation.</figcaption>
+      </figure>
     </div>
 
     <div class="project">
-      <h3><a href="https://github.com/kahzmic/ECEN-322">Electromagnetic Field Visualization</a></h3>
-      <p>Numerical solvers and plots for electric field and potential distributions from discrete charge configurations &mdash; turning the closed-form integrals from electromagnetics into something you can actually look at.</p>
-      <p class="tags">Python &middot; NumPy &middot; Matplotlib</p>
+      <h3>Real-Time Target Prediction</h3>
+      <p>Researched Kalman filter, particle filter, and Interacting Multiple Model estimators to predict a spinning robot's rotation radius, spin rate, and center position for aiming. Derived three linear filters accurate to 3&nbsp;cm and cheap enough to run on embedded compute &mdash; matching a state-of-the-art particle filter that needed a $1,000 GPU-class Jetson.</p>
+      <p class="tags">Python &middot; Kalman filters &middot; particle filters &middot; IMM &middot; PnP pose estimation &middot; Godot</p>
+
+      <!-- AUTO-AIM ON A SPINNING TARGET: full speed and slow motion, side by side.
+           If you only have one combined clip, delete one <figure> and the .duo
+           wrapper, and use a single <figure> instead. -->
+      <div class="duo">
+        <figure>
+          <video class="shot" autoplay loop muted playsinline>
+            <source src="videos/autoaim-spinning.mp4" type="video/mp4"
+                    onerror="this.closest('figure').remove()">
+          </video>
+          <figcaption>Continuous fire on a spinning target.</figcaption>
+        </figure>
+        <figure>
+          <video class="shot" autoplay loop muted playsinline>
+            <source src="videos/autoaim-moving.mp4" type="video/mp4"
+                    onerror="this.closest('figure').remove()">
+          </video>
+          <figcaption>Continuous fire on a moving target.</figcaption>
+        </figure>
+      </div>
+
+      <figure>
+        <img class="shot" src="photos/sentry-targeting-ramp.jpg"
+             alt="Sentry targeting from the top of a ramp"
+             onerror="this.closest('figure').remove()">
+        <figcaption>Sentry targeting from the top of a ramp.</figcaption>
+      </figure>
+
+      <figure>
+        <video class="shot" controls preload="metadata" playsinline>
+          <source src="videos/hero-shot-timing.mp4" type="video/mp4"
+                  onerror="this.closest('figure').remove()">
+        </video>
+        <figcaption>Auto-aim shot timing on Hero &mdash; the robot class that launches 42&nbsp;mm projectiles, roughly golf-ball sized, with a much slower and more arced trajectory than the 17&nbsp;mm rounds.</figcaption>
+      </figure>
     </div>
 
     <div class="project">
-      <h3><a href="https://github.com/kahzmic/ARM-testing">ARM Assembly Sandbox</a></h3>
-      <p>A working bench for ARM instruction-level experiments &mdash; testing addressing modes, branching behavior, and register conventions directly against hardware semantics rather than trusting the lecture slides.</p>
-      <p class="tags">ARM assembly &middot; computer architecture</p>
+      <h3><a href="https://github.com/kahzmic/localization_sim">Localization &amp; Path Planning from Scratch</a></h3>
+      <p>Before the team had the budget for better onboard compute, a teammate and I wrote Monte Carlo Localization from scratch out of <em>Probabilistic Robotics</em> &mdash; motion and measurement updates, resampling against raycast range readings, 1,000 particles converging on the true pose in real time &mdash; plus path planning on top of it, to work out whether we could run localization on the robot at all.</p>
+      <p>We retired it once new Jetsons made Nav2 practical. Writing the particle filter before using the library is why I know what AMCL is actually doing.</p>
+      <p class="tags">Python &middot; NumPy &middot; PyGame &middot; particle filters &middot; raycasting &middot; path planning</p>
+
+      <figure>
+        <video class="shot" controls preload="metadata" playsinline>
+          <source src="videos/localization-path-planning.mp4" type="video/mp4"
+                  onerror="this.closest('figure').remove()">
+        </video>
+        <figcaption>Localization and path planning running in simulation.</figcaption>
+      </figure>
+
+    </div>
+
+    <!-- ================================================================
+         CAPSTONE — delete this entire <div class="project"> block if you
+         don't want the capstone on the site. Nothing else depends on it.
+         ================================================================ -->
+    <div class="project">
+      <h3>Handheld Protocol Analyzer &mdash; Senior Capstone</h3>
+      <p>A handheld analyzer that sniffs UART, I2C, SPI, and CAN traffic and displays decoded payloads and live bus state on a mobile device. I own the bus sniffer modules &mdash; reading each protocol's framing, clocking, arbitration, and error conditions out of its specification and implementing the decoders in Verilog on an iCE40 UP5K FPGA.</p>
+      <p class="tags">Verilog &middot; iCE40 UP5K &middot; UART / I2C / SPI / CAN &middot; open-source FPGA toolchain</p>
+      <p class="meta">In progress &mdash; Spring 2026 to Fall 2026.</p>
     </div>
 
   </section>
@@ -126,10 +336,10 @@
   <section>
     <h2>Skills</h2>
     <ul class="skills">
-      <li><strong>Languages</strong> <span>&mdash; Python, C, ARM assembly</span></li>
-      <li><strong>Robotics</strong> <span>&mdash; particle filters, state estimation, LIDAR &amp; raycasting</span></li>
-      <li><strong>Systems</strong> <span>&mdash; computer architecture, embedded systems</span></li>
-      <li><strong>Tools</strong> <span>&mdash; NumPy, Matplotlib, Git</span></li>
+      <li><strong>Languages</strong> <span>&mdash; Python, C++, C, Verilog, MATLAB</span></li>
+      <li><strong>Embedded &amp; FPGA</strong> <span>&mdash; STM32, FOC motor control, UART / I2C / SPI / CAN, embedded Linux &amp; kernel drivers, Yosys, nextpnr, Icarus Verilog, GTKWave, iCE40 UP5K, J-Link &amp; Ozone, logic analyzer</span></li>
+      <li><strong>Robotics &amp; Estimation</strong> <span>&mdash; ROS 2, Nav2, AMCL, OpenCV, YOLO, NVIDIA Jetson, Kalman &amp; particle filters, IMM estimators, PnP pose estimation, cascaded PID</span></li>
+      <li><strong>Tools</strong> <span>&mdash; Git, CI/CD, Linux, iceoryx2, NumPy, Matplotlib</span></li>
     </ul>
   </section>
 
